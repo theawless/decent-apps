@@ -1,0 +1,56 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="DecentPictionary" name="description">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="yes" name="mobile-web-app-capable">
+    <link href="favicon.ico" rel="icon">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/picnic/6.5.2/picnic.min.css" rel="stylesheet">
+    <title>DecentPictionary</title>
+    <script src="https://cdn.jsdelivr.net/npm/responsive-sketchpad@0.2.1/responsive-sketchpad.min.js"></script>
+    <script src="https://chr15m.github.io/bugout/bugout.min.js"></script>
+</head>
+
+<body style="margin: auto; width: fit-content; font-size: smaller; padding: 2em">
+<main>
+    <div class="flex one two-600">
+        <article class="card">
+            <section>
+                <h2>Decent Pictionary</h2>
+            </section>
+            <footer>
+                <p id="status">Loading website...</p>
+            </footer>
+        </article>
+        <article class="card">
+            <footer>
+                <label for="users">Connected users</label>
+                <textarea id="users" placeholder="Users will be shown here..." readonly rows="8"></textarea>
+            </footer>
+        </article>
+    </div>
+    <div class="flex one two-600">
+        <article class="card">
+            <footer>
+                <label for="sketchpad">Current drawing</label>
+                <div id="sketchpad"></div>
+            </footer>
+        </article>
+        <article class="card">
+            <section>
+                <label for="messages">Chat messages</label>
+                <textarea cols="30" id="messages" placeholder="Messages will be shown here..." readonly rows="10">
+                </textarea>
+            </section>
+            <footer>
+                <label for="message">Enter message</label>
+                <textarea id="message" placeholder="Your message..." rows="1"></textarea>
+            </footer>
+        </article>
+    </div>
+</main>
+<script src="client.js"></script>
+</body>
+
+</html>
