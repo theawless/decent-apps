@@ -2,13 +2,15 @@
 
 <head>
     <meta charset="utf-8">
-    <meta content="DecentPictionary" name="description">
+    <meta content="DecentPictionary: Server" name="description">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="yes" name="mobile-web-app-capable">
     <link href="favicon.ico" rel="icon">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/picnic/6.5.2/picnic.min.css" rel="stylesheet">
-    <title>DecentPictionary</title>
-    <script src="https://cdn.jsdelivr.net/npm/responsive-sketchpad@0.2.1/responsive-sketchpad.min.js"></script>
+    <link href="https://cdn.rawgit.com/Viglino/iconicss/master/dist/iconicss.min.css" rel="stylesheet"/>
+    <title>DecentPictionary: Server</title>
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@3.0.0-beta.3/dist/signature_pad.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jscolor/2.0.4/jscolor.min.js"></script>
     <script src="https://chr15m.github.io/bugout/bugout.min.js"></script>
 </head>
 
@@ -17,16 +19,22 @@
     <div class="flex one two-600">
         <article class="card">
             <section>
-                <h2>Decent Pictionary</h2>
+                <i class="icss-gamepad x2"></i>
+                <label><strong>Decent Pictionary</strong></label>
             </section>
             <footer>
-                <p id="status">Loading website...</p>
-                <a id="partyLink" rel="noopener noreferrer" target="_blank"></a>
+                <article class="card">
+                    <footer>
+                        <p id="status">Loading website...</p>
+                        <a id="partyLink" rel="noopener noreferrer" target="_blank"></a>
+                    </footer>
+                </article>
             </footer>
         </article>
         <article class="card">
             <footer>
-                <label for="users">Connected users</label>
+                <i class="icss-users x2"></i>
+                <label for="users">Party users</label>
                 <textarea id="users" placeholder="Users will be shown here..." readonly rows="8"></textarea>
             </footer>
         </article>
@@ -34,13 +42,19 @@
     <div class="flex one two-600">
         <article class="card">
             <footer>
-                <label for="sketchpad">Current drawing</label>
-                <div id="sketchpad"></div>
+                <i class="icss-pencil-b x2"></i>
+                <label for="sketchpad">Party drawing</label>
+                <article class="card">
+                    <footer>
+                        <canvas id="sketchpad"></canvas>
+                    </footer>
+                </article>
             </footer>
         </article>
         <article class="card">
             <footer>
-                <label for="messages">Chat messages</label>
+                <i class="icss-chat x2"></i>
+                <label for="messages">Party messages</label>
                 <textarea cols="30" id="messages" placeholder="Messages will be shown here..." readonly rows="10">
                 </textarea>
             </footer>

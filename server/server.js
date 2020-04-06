@@ -3,9 +3,10 @@ document.getElementById("status").innerHTML = "Creating server...";
 const bugout = new Bugout({seed: localStorage["decent-pictionary-server-seed"]});
 const users = [];
 const messages = [];
-const pad = new Sketchpad(document.getElementById("sketchpad"));
+const pad = new SignaturePad(document.getElementById("sketchpad"));
 
 localStorage["decent-pictionary-server-seed"] = bugout.seed;
+pad.off();
 
 bugout.register("post-message", (address, message, callback) => {
     messages.push({"address": address, "message": message});
@@ -15,24 +16,24 @@ bugout.register("post-message", (address, message, callback) => {
     document.getElementById("messages").value = messages.map(m => m["address"] + ": " + m["message"]).join("\n");
     bugout.send({"code": "refresh-messages", "messages": messages});
     callback({});
-}, "Post a message to the chat");
+}, "Post a message to the party");
 
 bugout.register("post-drawing", (_, drawing, callback) => {
-    pad.loadJSON(drawing);
+    pad.fromData(drawing);
     bugout.send({"code": "refresh-drawing", "drawing": drawing});
     callback({});
-}, "Post drawing to the chat");
+}, "Post a drawing to the party");
 
 bugout.register("list-messages", (_, __, callback) => {
     callback(messages);
-}, "List all messages in the chat");
+}, "List all messages in the party");
 
 bugout.register("list-users", (_, __, callback) => {
     callback(users);
 }, "List all users in the party");
 
 bugout.register("get-drawing", (_, __, callback) => {
-    callback(pad.toJSON());
+    callback(pad.toData());
 }, "Get drawing in the party");
 
 bugout.once("connections", (_) => {

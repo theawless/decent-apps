@@ -7,24 +7,31 @@
     <meta content="yes" name="mobile-web-app-capable">
     <link href="favicon.ico" rel="icon">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/picnic/6.5.2/picnic.min.css" rel="stylesheet">
+    <link href="https://cdn.rawgit.com/Viglino/iconicss/master/dist/iconicss.min.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/nano.min.css" rel="stylesheet"/>
     <title>DecentPictionary</title>
-    <script src="https://cdn.jsdelivr.net/npm/responsive-sketchpad@0.2.1/responsive-sketchpad.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@3.0.0-beta.3/dist/signature_pad.min.js"></script>
     <script src="https://chr15m.github.io/bugout/bugout.min.js"></script>
 </head>
 
-<body style="margin: auto; width: fit-content; font-size: smaller; padding: 2em">
+<body style="margin: auto; width: fit-content; font-size: smaller; padding: 2em; color: darkslategrey; background-color: lightslategrey">
 <main>
     <div class="flex one two-600">
         <article class="card">
             <section>
-                <h2>Decent Pictionary</h2>
+                <i class="icss-gamepad x2"></i>
+                <label><strong>Decent Pictionary</strong></label>
             </section>
             <footer>
-                <p id="status">Loading website...</p>
+                <article class="card">
+                    <p id="status">Loading website...</p>
+                </article>
             </footer>
         </article>
         <article class="card">
             <footer>
+                <i class="icss-users x2"></i>
                 <label for="users">Connected users</label>
                 <textarea id="users" placeholder="Users will be shown here..." readonly rows="8"></textarea>
             </footer>
@@ -32,19 +39,36 @@
     </div>
     <div class="flex one two-600">
         <article class="card">
-            <footer>
+            <section>
+                <i class="icss-pencil-b x2"></i>
                 <label for="sketchpad">Current drawing</label>
-                <div id="sketchpad"></div>
+                <article class="card">
+                    <section>
+                        <canvas id="sketchpad"></canvas>
+                    </section>
+                    <hr>
+                    <footer>
+                        <div class="flex center six">
+                            <button class="pseudo" id="undo"><i class="icss-undo x2"></i></button>
+                            <button class="pseudo" id="clear"><i class="icss-x x2"></i></button>
+                            <button class="pseudo" id="picker"><i class="icss-color x2"></i></button>
+                        </div>
+                    </footer>
+                </article>
+            </section>
+            <footer>
             </footer>
         </article>
         <article class="card">
             <section>
+                <i class="icss-chat x2"></i>
                 <label for="messages">Chat messages</label>
                 <textarea cols="30" id="messages" placeholder="Messages will be shown here..." readonly rows="10">
                 </textarea>
             </section>
             <footer>
-                <label for="message">Enter message</label>
+                <i class="icss-paper-plane x2"></i>
+                <label for="message">Send message</label>
                 <textarea id="message" placeholder="Your message..." rows="1"></textarea>
             </footer>
         </article>
