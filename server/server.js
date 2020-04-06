@@ -13,15 +13,15 @@ bugout.register("post-message", (address, message, callback) => {
     if (messages.length > 10) {
         messages.shift();
     }
-    document.getElementById("messages").value = messages.map(m => m["address"] + ": " + m["message"]).join("\n");
     bugout.send({"code": "refresh-messages", "messages": messages});
     callback({});
+    document.getElementById("messages").value = messages.map(m => m["address"] + ": " + m["message"]).join("\n");
 }, "Post a message to the party");
 
 bugout.register("post-drawing", (_, drawing, callback) => {
-    pad.fromData(drawing);
     bugout.send({"code": "refresh-drawing", "drawing": drawing});
     callback({});
+    pad.fromData(drawing);
 }, "Post a drawing to the party");
 
 bugout.register("list-messages", (_, __, callback) => {
@@ -45,8 +45,8 @@ bugout.once("connections", (_) => {
 
 bugout.on("seen", (address) => {
     users.push({"address": address});
-    document.getElementById("users").value = users.map(u => u["address"]).join("\n");
     bugout.send({"code": "refresh-users", "users": users});
+    document.getElementById("users").value = users.map(u => u["address"]).join("\n");
 });
 
 window.addEventListener("beforeunload", (_) => {
@@ -59,6 +59,6 @@ bugout.on("left", address => {
             users.splice(i, 1);
         }
     }
-    document.getElementById("users").value = users.map(u => u["address"]).join("\n");
     bugout.send({"code": "refresh-users", "users": users});
+    document.getElementById("users").value = users.map(u => u["address"]).join("\n");
 });

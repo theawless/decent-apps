@@ -2,7 +2,7 @@ document.getElementById("status").innerHTML = "Connecting...";
 
 const bugout = new Bugout(location.hash.substr(1), {seed: localStorage["decent-pictionary-seed"]});
 const pad = new SignaturePad(document.getElementById("sketchpad"));
-const pickr = Pickr.create({
+const picker = Pickr.create({
     el: document.getElementById("picker"), theme: "nano",
     useAsButton: true, comparison: false, components: {hue: true,}
 });
@@ -35,11 +35,11 @@ bugout.on("message", (_, message) => {
 document.getElementById("message").addEventListener("keyup", (event) => {
     if (event.key === "Enter") {
         const message = document.getElementById("message").value.trim();
+        document.getElementById("message").value = "";
         if (message) {
             bugout.rpc("post-message", message, () => {
             });
         }
-        document.getElementById("message").value = "";
     }
 });
 
@@ -53,22 +53,20 @@ pad.onEnd = (_) => {
 };
 
 document.getElementById("undo").addEventListener("click", () => {
-    console.log("dick");
     const data = pad.toData();
     data.pop();
     pad.fromData(data);
-    bugout.rpc("post-drawing", pad.toData(), () => {
+    bugout.rpc("post-drawing", data, () => {
     });
 });
 
 document.getElementById("clear").addEventListener("click", () => {
-    console.log("butt");
     pad.clear();
     bugout.rpc("post-drawing", pad.toData(), () => {
     });
 });
 
-pickr.on("change", (color, _) => {
-    [r, g, b, _] = color.toRGBA();
+picker.on("change", (color, _) => {
+    [r, g, b, __] = color.toRGBA();
     pad.penColor = "rgb(" + r + "," + g + "," + b + ")";
 });
