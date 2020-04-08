@@ -3,10 +3,10 @@ document.getElementById("status").innerHTML = "Creating server...";
 const bugout = new Bugout({seed: localStorage["decent-pictionary-server-seed"]});
 const users = [];
 const messages = [];
-const pad = new SignaturePad(document.getElementById("sketchpad"));
+const pad = new SimpleDrawingBoard(document.getElementById("sketchpad"));
 
 localStorage["decent-pictionary-server-seed"] = bugout.seed;
-pad.off();
+pad.dispose();
 
 bugout.register("post-message", (address, message, callback) => {
     messages.push({"address": address, "message": message});
@@ -21,7 +21,7 @@ bugout.register("post-message", (address, message, callback) => {
 bugout.register("post-drawing", (_, drawing, callback) => {
     bugout.send({"code": "refresh-drawing", "drawing": drawing});
     callback({});
-    pad.fromData(drawing);
+    pad.setImg(drawing, false, true);
 }, "Post a drawing to the party");
 
 bugout.register("list-messages", (_, __, callback) => {
@@ -33,7 +33,7 @@ bugout.register("list-users", (_, __, callback) => {
 }, "List all users in the party");
 
 bugout.register("get-drawing", (_, __, callback) => {
-    callback(pad.toData());
+    callback(pad.getImg());
 }, "Get drawing in the party");
 
 bugout.once("connections", (_) => {

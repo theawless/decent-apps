@@ -11,7 +11,7 @@
     <link href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/nano.min.css" rel="stylesheet"/>
     <title>DecentPictionary</title>
     <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/signature_pad@3.0.0-beta.3/dist/signature_pad.min.js"></script>
+    <script src="https://unpkg.com/simple-drawing-board@2.0.3/dist/simple-drawing-board.min.js"></script>
     <script src="https://chr15m.github.io/bugout/bugout.min.js"></script>
 </head>
 
@@ -19,13 +19,13 @@
 <main>
     <div class="flex one two-600">
         <article class="card">
-            <section>
+            <footer>
                 <i class="icss-gamepad x2"></i>
                 <label><strong>Decent Pictionary</strong></label>
-            </section>
-            <footer>
                 <article class="card">
-                    <p id="status">Loading website...</p>
+                    <footer>
+                        <p id="status">Loading website...</p>
+                    </footer>
                 </article>
             </footer>
         </article>
@@ -33,13 +33,13 @@
             <footer>
                 <i class="icss-users x2"></i>
                 <label for="users">Connected users</label>
-                <textarea id="users" placeholder="Users will be shown here..." readonly rows="8"></textarea>
+                <textarea id="users" placeholder="Users will be shown here..." readonly rows="6"></textarea>
             </footer>
         </article>
     </div>
     <div class="flex one two-600">
         <article class="card">
-            <section>
+            <footer>
                 <i class="icss-pencil-b x2"></i>
                 <label for="sketchpad">Current drawing</label>
                 <article class="card">
@@ -49,27 +49,25 @@
                     <hr>
                     <footer>
                         <div class="flex center six">
-                            <button class="pseudo" id="undo"><i class="icss-undo x2"></i></button>
                             <button class="pseudo" id="clear"><i class="icss-x x2"></i></button>
+                            <button class="pseudo" id="undo"><i class="icss-undo x2"></i></button>
+                            <button class="pseudo" id="redo"><i class="icss-redo x2"></i></button>
                             <button class="pseudo" id="picker"><i class="icss-color x2"></i></button>
                         </div>
                     </footer>
                 </article>
-            </section>
-            <footer>
             </footer>
         </article>
         <article class="card">
             <section>
                 <i class="icss-chat x2"></i>
                 <label for="messages">Chat messages</label>
-                <textarea cols="30" id="messages" placeholder="Messages will be shown here..." readonly rows="10">
-                </textarea>
+                <textarea id="messages" placeholder="Messages will be shown here..." readonly rows="10"></textarea>
             </section>
             <footer>
                 <i class="icss-paper-plane x2"></i>
                 <label for="message">Send message</label>
-                <textarea id="message" placeholder="Your message..." rows="1"></textarea>
+                <input id="message" placeholder="Your message..." type="text">
             </footer>
         </article>
     </div>
