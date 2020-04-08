@@ -3,8 +3,9 @@ document.getElementById("status").innerHTML = "Connecting...";
 const bugout = new Bugout(location.hash.substr(1), {seed: localStorage["decent-pictionary-seed"]});
 const pad = new SimpleDrawingBoard(document.getElementById("sketchpad"));
 const picker = Pickr.create({
-    el: document.getElementById("picker"), theme: "nano",
-    useAsButton: true, comparison: false, components: {hue: true,}
+    el: document.getElementById("picker"),
+    theme: "nano", useAsButton: true, comparison: false,
+    components: {hue: true, preview: true, opacity: true}
 });
 
 localStorage["decent-pictionary-seed"] = bugout.seed;
@@ -91,6 +92,12 @@ document.getElementById("redo").addEventListener("click", () => {
     }
     pad.redo();
 });
+
+for (let i = 1; i <= 3; ++i) {
+    document.getElementById("brush" + i.toString()).addEventListener("click", () => {
+        pad.setLineSize(5 * i);
+    });
+}
 
 picker.on("change", (color, _) => {
     pad.setLineColor(color.toRGBA().toString());
