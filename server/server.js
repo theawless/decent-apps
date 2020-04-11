@@ -1,9 +1,12 @@
 document.getElementById("status").innerHTML = "Creating server...";
+const canvas = document.getElementById("sketchpad");
+canvas.height = canvas.clientHeight;
+canvas.width = canvas.clientWidth;
 
+const pad = new SimpleDrawingBoard(canvas);
 const bugout = new Bugout({seed: localStorage["decent-pictionary-server-seed"]});
 const users = [];
 const messages = [];
-const pad = new SimpleDrawingBoard(document.getElementById("sketchpad"));
 
 localStorage["decent-pictionary-server-seed"] = bugout.seed;
 pad.dispose();

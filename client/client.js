@@ -1,7 +1,11 @@
 document.getElementById("status").innerHTML = "Connecting...";
+const canvas = document.getElementById("sketchpad");
+canvas.height = canvas.clientHeight;
+canvas.width = canvas.clientWidth;
 
+const pad = new SimpleDrawingBoard(canvas);
 const bugout = new Bugout(location.hash.substr(1), {seed: localStorage["decent-pictionary-seed"]});
-const pad = new SimpleDrawingBoard(document.getElementById("sketchpad"));
+
 const picker = Pickr.create({
     el: document.getElementById("picker"),
     theme: "nano", useAsButton: true, comparison: false,

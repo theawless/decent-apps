@@ -1,0 +1,13 @@
+body {
+    margin: auto;
+    width: fit-content;
+    font-size: smaller;
+    padding: 1em;
+    color: darkred;
+    background-color: lightcoral;
+}
+
+canvas {
+    width: 20em;
+    height: 15em;
+}
