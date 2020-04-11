@@ -3,12 +3,22 @@ const canvas = document.getElementById("sketchpad");
 canvas.height = canvas.clientHeight;
 canvas.width = canvas.clientWidth;
 
+document.getElementById("stun").checked = localStorage.getItem("decent-pictionary-server-stun") === "true";
+document.getElementById("stun").addEventListener("click", event => {
+    event.preventDefault();
+    localStorage.setItem("decent-pictionary-server-stun", document.getElementById("stun").checked);
+    window.location.reload();
+});
+
 const pad = new SimpleDrawingBoard(canvas);
-const bugout = new Bugout({seed: localStorage["decent-pictionary-server-seed"]});
+const bugout = new Bugout({
+    seed: localStorage.getItem("decent-pictionary-server-seed"),
+    iceServers: document.getElementById("stun").checked ? [{urls: "stun:stun.l.google.com:19302"}] : []
+});
 const users = [];
 const messages = [];
 
-localStorage["decent-pictionary-server-seed"] = bugout.seed;
+localStorage.setItem("decent-pictionary-server-seed", bugout.seed);
 pad.dispose();
 
 bugout.register("post-message", (address, message, callback) => {
@@ -42,7 +52,8 @@ bugout.register("get-drawing", (_, __, callback) => {
 bugout.once("connections", (_) => {
     document.getElementById("status").innerHTML = "Listening...";
     const url = location.href.replace("server", "client");
-    document.getElementById("partyLink").href = url + "#" + bugout.address();
+    const query = "?address=" + bugout.address() + "&stun=" + document.getElementById("stun").checked;
+    document.getElementById("partyLink").href = url + query;
     document.getElementById("partyLink").innerText = "Share this link with your friends!";
 });
 

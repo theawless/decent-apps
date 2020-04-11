@@ -4,7 +4,10 @@ canvas.height = canvas.clientHeight;
 canvas.width = canvas.clientWidth;
 
 const pad = new SimpleDrawingBoard(canvas);
-const bugout = new Bugout(location.hash.substr(1), {seed: localStorage["decent-pictionary-seed"]});
+const bugout = new Bugout(new URLSearchParams(location.search).get("address"), {
+    seed: localStorage.getItem("decent-pictionary-seed"),
+    iceServers: new URLSearchParams(location.search).get("stun") === "true" ? [{urls: "stun:stun.l.google.com:19302"}] : []
+});
 
 const picker = Pickr.create({
     el: document.getElementById("picker"),
@@ -12,7 +15,7 @@ const picker = Pickr.create({
     components: {hue: true, preview: true, opacity: true}
 });
 
-localStorage["decent-pictionary-seed"] = bugout.seed;
+localStorage.setItem("decent-pictionary-seed", bugout.seed);
 
 bugout.on("server", () => {
     document.getElementById("status").innerHTML = "Connected...";
@@ -38,7 +41,7 @@ bugout.on("message", (_, message) => {
 });
 
 bugout.on("left", address => {
-    if (address === location.hash.substr(1)) {
+    if (address === new URLSearchParams(location.search).get("address")) {
         document.getElementById("status").innerHTML = "Connecting...";
     }
 });
