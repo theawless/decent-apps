@@ -8,6 +8,8 @@ body {
 }
 
 canvas {
+    margin: auto;
     width: 30em;
     height: 22.5em;
+    border: 1px dotted lightslategrey;
 }

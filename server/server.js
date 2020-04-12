@@ -3,26 +3,27 @@ const canvas = document.getElementById("sketchpad");
 canvas.height = canvas.clientHeight;
 canvas.width = canvas.clientWidth;
 
-document.getElementById("stun").checked = localStorage.getItem("decent-pictionary-server-stun") === "true";
-document.getElementById("stun").addEventListener("click", () => {
-    localStorage.setItem("decent-pictionary-server-stun", document.getElementById("stun").checked);
-    window.location.reload();
-});
-
+const users = [];
+const messages = [];
 const pad = SimpleDrawingBoard.create(canvas);
 const bugout = new Bugout({
     seed: localStorage.getItem("decent-pictionary-server-seed"),
-    iceServers: document.getElementById("stun").checked ? [{urls: "stun:stun.l.google.com:19302"}] : []
+    announce: [
+        "wss://hub.bugout.link", "wss://tracker.openwebtorrent.com",
+        "wss://tracker.btorrent.xyz", "wss://tracker.fastcast.nz",
+        "wss://tracker.sloppyta.co", "wss://tracker.novage.com.ua"
+    ],
+    iceServers: [{
+        urls: ["stun:stun.l.google.com:19302", "stun:stun.services.mozilla.com"]
+    }]
 });
-const users = [];
-const messages = [];
 
 localStorage.setItem("decent-pictionary-server-seed", bugout.seed);
 pad.destroy();
 
 bugout.register("post-message", (address, message, callback) => {
     messages.push({"address": address, "message": message});
-    if (messages.length > 10) {
+    if (messages.length > 16) {
         messages.shift();
     }
     bugout.send({"code": "refresh-messages", "messages": messages});
@@ -51,7 +52,7 @@ bugout.register("get-drawing", (_, __, callback) => {
 bugout.once("connections", (_) => {
     document.getElementById("status").innerHTML = "Listening...";
     const url = location.href.replace("server", "client");
-    const query = `?address=${bugout.address()}&stun=${document.getElementById("stun").checked}`;
+    const query = `?address=${bugout.address()}`;
     document.getElementById("partyLink").href = url + query;
     document.getElementById("partyLink").innerText = "Share this link with your friends!";
 });
@@ -62,10 +63,6 @@ bugout.on("seen", (address) => {
     document.getElementById("users").value = users.map(u => u["address"]).join("\n");
 });
 
-window.addEventListener("beforeunload", (_) => {
-    bugout.close();
-});
-
 bugout.on("left", address => {
     for (let i = 0; i < users.length; ++i) {
         if (users[i]["address"] === address) {
@@ -74,4 +71,8 @@ bugout.on("left", address => {
     }
     bugout.send({"code": "refresh-users", "users": users});
     document.getElementById("users").value = users.map(u => u["address"]).join("\n");
+});
+
+window.addEventListener("beforeunload", (_) => {
+    bugout.close();
 });

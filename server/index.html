@@ -18,49 +18,46 @@
 
 <body>
 <main>
-    <div class="flex one two-600">
-        <article class="card">
-            <footer>
-                <i class="icss-gamepad x2"></i>
-                <label><strong>Decent Pictionary: Server</strong></label>
-                <article class="card">
-                    <footer>
-                        <label>
-                            <input id="stun" type="checkbox">
-                            <span class="checkable">Use public stun servers</span>
-                        </label>
-                        <hr>
-                        <p id="status">Loading website...</p>
-                        <a id="partyLink" rel="noopener noreferrer" target="_blank"></a>
-                    </footer>
-                </article>
-            </footer>
-        </article>
-        <article class="card">
-            <footer>
-                <i class="icss-users x2"></i>
-                <label for="users">Connected users</label>
-                <textarea cols="40" id="users" placeholder="Users show here..." readonly rows="6"></textarea>
-            </footer>
-        </article>
-    </div>
-    <div class="flex one two-600">
-        <article class="card">
-            <footer>
-                <i class="icss-pencil-b x2"></i>
-                <label for="sketchpad">Current drawing</label>
-                <article class="card">
-                    <canvas id="sketchpad"></canvas>
-                </article>
-            </footer>
-        </article>
-        <article class="card">
-            <footer>
-                <i class="icss-chat x2"></i>
-                <label for="messages">Chat messages</label>
-                <textarea cols="40" id="messages" placeholder="Messages show here..." readonly rows="10"></textarea>
-            </footer>
-        </article>
+    <div class="flex one two-800">
+        <div>
+            <article class="card">
+                <footer>
+                    <i class="icss-gamepad x2"></i>
+                    <label><strong>Decent Pictionary: Server</strong></label>
+                    <article class="card">
+                        <footer>
+                            <p id="status">Loading website...</p>
+                            <a id="partyLink" rel="noopener noreferrer" target="_blank"></a>
+                        </footer>
+                    </article>
+                </footer>
+            </article>
+            <article class="card">
+                <footer>
+                    <i class="icss-pencil-b x2"></i>
+                    <label for="sketchpad">Current drawing</label>
+                    <article class="card">
+                        <canvas id="sketchpad"></canvas>
+                    </article>
+                </footer>
+            </article>
+        </div>
+        <div>
+            <article class="card">
+                <footer>
+                    <i class="icss-chat x2"></i>
+                    <label for="messages">Chat messages</label>
+                    <textarea cols="40" id="messages" placeholder="Messages show here..." readonly rows="8"></textarea>
+                </footer>
+            </article>
+            <article class="card">
+                <footer>
+                    <i class="icss-users x2"></i>
+                    <label for="users">Connected users</label>
+                    <textarea cols="40" id="users" placeholder="Users show here..." readonly rows="8"></textarea>
+                </footer>
+            </article>
+        </div>
     </div>
 </main>
 <script src="server.js"></script>

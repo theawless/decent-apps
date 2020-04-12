@@ -3,13 +3,18 @@ const canvas = document.getElementById("sketchpad");
 canvas.height = canvas.clientHeight;
 canvas.width = canvas.clientWidth;
 
-const pad = SimpleDrawingBoard.create(canvas);
-pad.setLineSize(5);
+const pad = SimpleDrawingBoard.create(document.getElementById("sketchpad"));
 const bugout = new Bugout(new URLSearchParams(location.search).get("address"), {
     seed: localStorage.getItem("decent-pictionary-seed"),
-    iceServers: new URLSearchParams(location.search).get("stun") === "true" ? [{urls: "stun:stun.l.google.com:19302"}] : []
+    announce: [
+        "wss://hub.bugout.link", "wss://tracker.openwebtorrent.com",
+        "wss://tracker.btorrent.xyz", "wss://tracker.fastcast.nz",
+        "wss://tracker.sloppyta.co", "wss://tracker.novage.com.ua"
+    ],
+    iceServers: [{
+        urls: ["stun:stun.l.google.com:19302", "stun:stun.services.mozilla.com"]
+    }]
 });
-
 const picker = Pickr.create({
     el: document.getElementById("picker"),
     theme: "nano", useAsButton: true, comparison: false,
@@ -17,6 +22,7 @@ const picker = Pickr.create({
 });
 
 localStorage.setItem("decent-pictionary-seed", bugout.seed);
+pad.setLineSize(5);
 
 bugout.on("server", () => {
     document.getElementById("status").innerHTML = "Connected...";
@@ -47,25 +53,13 @@ bugout.on("left", address => {
     }
 });
 
-document.getElementById("message").addEventListener("keyup", (event) => {
-    event.preventDefault();
-    if (event.key === "Enter") {
-        const message = document.getElementById("message").value.trim();
-        document.getElementById("message").value = "";
-        if (message) {
-            bugout.rpc("post-message", message, () => {
-            });
-        }
-    }
-});
-
-window.addEventListener("beforeunload", (_) => {
-    bugout.close();
-});
-
 pad.observer.on("drawEnd", (_) => {
     bugout.rpc("post-drawing", pad.toDataURL(), () => {
     });
+});
+
+pad.observer.on("drawBegin", (_) => {
+    document.getElementById("message").blur();
 });
 
 document.getElementById("clear").addEventListener("click", () => {
@@ -96,4 +90,20 @@ for (let i = 1; i <= 3; ++i) {
 
 picker.on("change", (color, _) => {
     pad.setLineColor(color.toRGBA().toString());
+});
+
+document.getElementById("message").addEventListener("keyup", (event) => {
+    event.preventDefault();
+    if (event.key === "Enter") {
+        const message = document.getElementById("message").value.trim();
+        document.getElementById("message").value = "";
+        if (message) {
+            bugout.rpc("post-message", message, () => {
+            });
+        }
+    }
+});
+
+window.addEventListener("beforeunload", (_) => {
+    bugout.close();
 });

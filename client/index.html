@@ -18,59 +18,61 @@
 
 <body>
 <main>
-    <div class="flex one two-600">
-        <article class="card">
-            <footer>
-                <i class="icss-gamepad x2"></i>
-                <label><strong>Decent Pictionary</strong></label>
-                <article class="card">
-                    <footer>
-                        <p id="status">Loading website...</p>
-                    </footer>
-                </article>
-            </footer>
-        </article>
-        <article class="card">
-            <footer>
-                <i class="icss-users x2"></i>
-                <label for="users">Connected users</label>
-                <textarea cols="40" id="users" placeholder="Users show here..." readonly rows="6"></textarea>
-            </footer>
-        </article>
-    </div>
-    <div class="flex one two-600">
-        <article class="card">
-            <section>
-                <i class="icss-pencil-b x2"></i>
-                <label for="sketchpad">Current drawing</label>
-                <article class="card">
-                    <canvas id="sketchpad"></canvas>
-                </article>
-            </section>
-            <footer>
-                <div class="flex center seven">
-                    <button class="pseudo" id="clear"><i class="icss-x x2"></i></button>
-                    <button class="pseudo" id="undo"><i class="icss-undo x2"></i></button>
-                    <button class="pseudo" id="redo"><i class="icss-redo x2"></i></button>
-                    <button class="pseudo" id="picker"><i class="icss-color x2"></i></button>
-                    <button class="pseudo" id="brush1"><i class="icss-circle xsmall"></i></button>
-                    <button class="pseudo" id="brush2"><i class="icss-circle x"></i></button>
-                    <button class="pseudo" id="brush3"><i class="icss-circle x2"></i></button>
-                </div>
-            </footer>
-        </article>
-        <article class="card">
-            <section>
-                <i class="icss-chat x2"></i>
-                <label for="messages">Chat messages</label>
-                <textarea cols="40" id="messages" placeholder="Messages show here..." readonly rows="10"></textarea>
-            </section>
-            <footer>
-                <i class="icss-paper-plane x2"></i>
-                <label for="message">Send message</label>
-                <input id="message" placeholder="Your message..." type="text">
-            </footer>
-        </article>
+    <div class="flex one two-800">
+        <div>
+            <article class="card">
+                <footer>
+                    <i class="icss-gamepad x2"></i>
+                    <label><strong>Decent Pictionary</strong></label>
+                    <article class="card">
+                        <footer>
+                            <p id="status">Loading website...</p>
+                        </footer>
+                    </article>
+                </footer>
+            </article>
+            <article class="card">
+                <footer>
+                    <i class="icss-pencil-b x2"></i>
+                    <label for="sketchpad">Current drawing</label>
+                    <article class="card">
+                        <canvas id="sketchpad"></canvas>
+                        <footer>
+                            <div class="flex seven">
+                                <button class="pseudo" id="clear"><i class="icss-x x2"></i></button>
+                                <button class="pseudo" id="undo"><i class="icss-undo x2"></i></button>
+                                <button class="pseudo" id="redo"><i class="icss-redo x2"></i></button>
+                                <button class="pseudo" id="picker"><i class="icss-color x2"></i></button>
+                                <button class="pseudo" id="brush1"><i class="icss-circle xsmall"></i></button>
+                                <button class="pseudo" id="brush2"><i class="icss-circle x"></i></button>
+                                <button class="pseudo" id="brush3"><i class="icss-circle x2"></i></button>
+                            </div>
+                        </footer>
+                    </article>
+                </footer>
+            </article>
+        </div>
+        <div>
+            <article class="card">
+                <section>
+                    <i class="icss-chat x2"></i>
+                    <label for="messages">Chat messages</label>
+                    <textarea cols="40" id="messages" placeholder="Messages show here..." readonly rows="8"></textarea>
+                </section>
+                <footer>
+                    <i class="icss-paper-plane x2"></i>
+                    <label for="message">Send message</label>
+                    <input id="message" placeholder="Your message..." type="text">
+                </footer>
+            </article>
+            <article class="card">
+                <footer>
+                    <i class="icss-users x2"></i>
+                    <label for="users">Connected users</label>
+                    <textarea cols="40" id="users" placeholder="Users show here..." readonly rows="8"></textarea>
+                </footer>
+            </article>
+        </div>
     </div>
 </main>
 <script src="client.js"></script>
