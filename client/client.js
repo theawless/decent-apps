@@ -3,7 +3,8 @@ const canvas = document.getElementById("sketchpad");
 canvas.height = canvas.clientHeight;
 canvas.width = canvas.clientWidth;
 
-const pad = new SimpleDrawingBoard(canvas);
+const pad = SimpleDrawingBoard.create(canvas);
+pad.setLineSize(5);
 const bugout = new Bugout(new URLSearchParams(location.search).get("address"), {
     seed: localStorage.getItem("decent-pictionary-seed"),
     iceServers: new URLSearchParams(location.search).get("stun") === "true" ? [{urls: "stun:stun.l.google.com:19302"}] : []
@@ -20,23 +21,23 @@ localStorage.setItem("decent-pictionary-seed", bugout.seed);
 bugout.on("server", () => {
     document.getElementById("status").innerHTML = "Connected...";
     bugout.rpc("list-messages", {}, (messages) => {
-        document.getElementById("messages").value = messages.map(m => m["address"] + ": " + m["message"]).join("\n");
+        document.getElementById("messages").value = messages.map(m => `${m["address"]}: ${m["message"]}`).join("\n");
     });
     bugout.rpc("list-users", {}, (users) => {
         document.getElementById("users").value = users.map(u => u["address"]).join("\n");
     });
     bugout.rpc("get-drawing", {}, (drawing) => {
-        pad.setImg(drawing, false, true);
+        pad.fillImageByDataURL(drawing).then();
     });
 });
 
 bugout.on("message", (_, message) => {
     if (message["code"] === "refresh-messages") {
-        document.getElementById("messages").value = message["messages"].map(m => m["address"] + ": " + m["message"]).join("\n");
+        document.getElementById("messages").value = message["messages"].map(m => `${m["address"]}: ${m["message"]}`).join("\n");
     } else if (message["code"] === "refresh-users") {
         document.getElementById("users").value = message["users"].map(u => u["address"]).join("\n");
     } else if (message["code"] === "refresh-drawing") {
-        pad.setImg(message["drawing"], false, true);
+        pad.fillImageByDataURL(message["drawing"]).then();
     }
 });
 
@@ -62,46 +63,33 @@ window.addEventListener("beforeunload", (_) => {
     bugout.close();
 });
 
-pad.isDrawing = 0;
-Object.defineProperties(pad, {
-    "_isDrawing": {
-        get: () => pad.isDrawing,
-        set: (x) => {
-            pad.isDrawing = x;
-            if (x === 0) {
-                bugout.rpc("post-drawing", pad.getImg(), () => {
-                });
-            }
-        }
-    },
+pad.observer.on("drawEnd", (_) => {
+    bugout.rpc("post-drawing", pad.toDataURL(), () => {
+    });
 });
 
 document.getElementById("clear").addEventListener("click", () => {
     pad.clear();
-    bugout.rpc("post-drawing", pad.getImg(), () => {
+    bugout.rpc("post-drawing", pad.toDataURL(), () => {
     });
 });
 
 document.getElementById("undo").addEventListener("click", () => {
-    const img = pad._history.prev.get(pad._history.prev._items.length - 1);
-    if (img) {
-        bugout.rpc("post-drawing", img, () => {
+    pad.undo().then(() => {
+        bugout.rpc("post-drawing", pad.toDataURL(), () => {
         });
-    }
-    pad.undo();
+    });
 });
 
 document.getElementById("redo").addEventListener("click", () => {
-    const img = pad._history.next.get(pad._history.next._items.length - 1);
-    if (img) {
-        bugout.rpc("post-drawing", img, () => {
+    pad.redo().then(() => {
+        bugout.rpc("post-drawing", pad.toDataURL(), () => {
         });
-    }
-    pad.redo();
+    });
 });
 
 for (let i = 1; i <= 3; ++i) {
-    document.getElementById("brush" + i.toString()).addEventListener("click", () => {
+    document.getElementById(`brush${i.toString()}`).addEventListener("click", () => {
         pad.setLineSize(5 * i);
     });
 }

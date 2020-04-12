@@ -2,12 +2,12 @@ body {
     margin: auto;
     width: fit-content;
     font-size: smaller;
-    padding: 1em;
+    padding: 0.5em;
     color: darkslategrey;
     background-color: lightslategrey;
 }
 
 canvas {
-    width: 20em;
-    height: 15em;
+    width: 30em;
+    height: 22.5em;
 }

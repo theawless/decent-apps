@@ -12,7 +12,7 @@
     <link href="client.css" rel="stylesheet"/>
     <title>DecentPictionary</title>
     <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
-    <script src="https://unpkg.com/simple-drawing-board@2.0.3/dist/simple-drawing-board.min.js"></script>
+    <script src="https://unpkg.com/simple-drawing-board@3.0.0/dist/simple-drawing-board.min.js"></script>
     <script src="https://chr15m.github.io/bugout/bugout.min.js"></script>
 </head>
 
@@ -34,39 +34,36 @@
             <footer>
                 <i class="icss-users x2"></i>
                 <label for="users">Connected users</label>
-                <textarea id="users" placeholder="Users will be shown here..." readonly rows="6"></textarea>
+                <textarea cols="40" id="users" placeholder="Users show here..." readonly rows="6"></textarea>
             </footer>
         </article>
     </div>
     <div class="flex one two-600">
         <article class="card">
-            <footer>
+            <section>
                 <i class="icss-pencil-b x2"></i>
                 <label for="sketchpad">Current drawing</label>
                 <article class="card">
-                    <section>
-                        <canvas id="sketchpad"></canvas>
-                    </section>
-                    <hr>
-                    <footer>
-                        <div class="flex center seven">
-                            <button class="pseudo" id="clear"><i class="icss-x x2"></i></button>
-                            <button class="pseudo" id="undo"><i class="icss-undo x2"></i></button>
-                            <button class="pseudo" id="redo"><i class="icss-redo x2"></i></button>
-                            <button class="pseudo" id="picker"><i class="icss-color x2"></i></button>
-                            <button class="pseudo" id="brush1"><i class="icss-circle xsmall"></i></button>
-                            <button class="pseudo" id="brush2"><i class="icss-circle x"></i></button>
-                            <button class="pseudo" id="brush3"><i class="icss-circle x2"></i></button>
-                        </div>
-                    </footer>
+                    <canvas id="sketchpad"></canvas>
                 </article>
+            </section>
+            <footer>
+                <div class="flex center seven">
+                    <button class="pseudo" id="clear"><i class="icss-x x2"></i></button>
+                    <button class="pseudo" id="undo"><i class="icss-undo x2"></i></button>
+                    <button class="pseudo" id="redo"><i class="icss-redo x2"></i></button>
+                    <button class="pseudo" id="picker"><i class="icss-color x2"></i></button>
+                    <button class="pseudo" id="brush1"><i class="icss-circle xsmall"></i></button>
+                    <button class="pseudo" id="brush2"><i class="icss-circle x"></i></button>
+                    <button class="pseudo" id="brush3"><i class="icss-circle x2"></i></button>
+                </div>
             </footer>
         </article>
         <article class="card">
             <section>
                 <i class="icss-chat x2"></i>
                 <label for="messages">Chat messages</label>
-                <textarea id="messages" placeholder="Messages will be shown here..." readonly rows="10"></textarea>
+                <textarea cols="40" id="messages" placeholder="Messages show here..." readonly rows="10"></textarea>
             </section>
             <footer>
                 <i class="icss-paper-plane x2"></i>

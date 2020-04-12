@@ -12,7 +12,7 @@
     <link href="server.css" rel="stylesheet"/>
     <title>DecentPictionary: Server</title>
     <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
-    <script src="https://unpkg.com/simple-drawing-board@2.0.3/dist/simple-drawing-board.min.js"></script>
+    <script src="https://unpkg.com/simple-drawing-board@3.0.0/dist/simple-drawing-board.min.js"></script>
     <script src="https://chr15m.github.io/bugout/bugout.min.js"></script>
 </head>
 
@@ -29,6 +29,7 @@
                             <input id="stun" type="checkbox">
                             <span class="checkable">Use public stun servers</span>
                         </label>
+                        <hr>
                         <p id="status">Loading website...</p>
                         <a id="partyLink" rel="noopener noreferrer" target="_blank"></a>
                     </footer>
@@ -39,7 +40,7 @@
             <footer>
                 <i class="icss-users x2"></i>
                 <label for="users">Connected users</label>
-                <textarea id="users" placeholder="Users will be shown here..." readonly rows="6"></textarea>
+                <textarea cols="40" id="users" placeholder="Users show here..." readonly rows="6"></textarea>
             </footer>
         </article>
     </div>
@@ -49,9 +50,7 @@
                 <i class="icss-pencil-b x2"></i>
                 <label for="sketchpad">Current drawing</label>
                 <article class="card">
-                    <footer>
-                        <canvas id="sketchpad"></canvas>
-                    </footer>
+                    <canvas id="sketchpad"></canvas>
                 </article>
             </footer>
         </article>
@@ -59,7 +58,7 @@
             <footer>
                 <i class="icss-chat x2"></i>
                 <label for="messages">Chat messages</label>
-                <textarea id="messages" placeholder="Messages will be shown here..." readonly rows="10"></textarea>
+                <textarea cols="40" id="messages" placeholder="Messages show here..." readonly rows="10"></textarea>
             </footer>
         </article>
     </div>
