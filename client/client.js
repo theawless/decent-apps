@@ -7,8 +7,8 @@ const pad = SimpleDrawingBoard.create(document.getElementById("sketchpad"));
 const bugout = new Bugout(new URLSearchParams(location.search).get("address"), {
     seed: localStorage.getItem("decent-pictionary-seed"),
     announce: [
-        "wss://hub.bugout.link", "wss://tracker.openwebtorrent.com",
-        "wss://tracker.btorrent.xyz", "wss://tracker.fastcast.nz",
+        "wss://hub.bugout.link",
+        "wss://tracker.openwebtorrent.com", "wss://tracker.btorrent.xyz",
         "wss://tracker.sloppyta.co", "wss://tracker.novage.com.ua"
     ],
     iceServers: [{
@@ -24,7 +24,7 @@ const picker = Pickr.create({
 localStorage.setItem("decent-pictionary-seed", bugout.seed);
 pad.setLineSize(5);
 
-bugout.on("server", () => {
+bugout.on("server", (_) => {
     document.getElementById("status").innerHTML = "Connected...";
     bugout.rpc("list-messages", {}, (messages) => {
         document.getElementById("messages").value = messages.map(m => `${m["address"]}: ${m["message"]}`).join("\n");

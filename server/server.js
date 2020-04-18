@@ -9,8 +9,8 @@ const pad = SimpleDrawingBoard.create(canvas);
 const bugout = new Bugout({
     seed: localStorage.getItem("decent-pictionary-server-seed"),
     announce: [
-        "wss://hub.bugout.link", "wss://tracker.openwebtorrent.com",
-        "wss://tracker.btorrent.xyz", "wss://tracker.fastcast.nz",
+        "wss://hub.bugout.link",
+        "wss://tracker.openwebtorrent.com", "wss://tracker.btorrent.xyz",
         "wss://tracker.sloppyta.co", "wss://tracker.novage.com.ua"
     ],
     iceServers: [{
